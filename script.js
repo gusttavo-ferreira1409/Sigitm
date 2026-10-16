@@ -244,6 +244,13 @@ function atualizarTabela() {
                     </button>
 
                     <button
+                        class="botao-status-gestor ${gestor.ativo === false ? "ativar" : "inativar"}"
+                        title="${gestor.ativo === false ? "Ativar gestor" : "Inativar gestor"}"
+                        onclick="alterarStatusGestor('${gestor.codigo}')">
+                        ${gestor.ativo === false ? "Ativar" : "Inativar"}
+                    </button>
+
+                    <button
                         class="botao-icone excluir"
                         title="Excluir"
                         onclick="excluirGestor('${gestor.codigo}')">
@@ -354,6 +361,35 @@ function visualizarGestor(codigo) {
 
 function fecharModal() {
     selecionar("fundoModal").classList.add("oculto");
+}
+
+function alterarStatusGestor(codigo) {
+    const gestor = gestores.find(item => item.codigo === codigo);
+
+    if (!gestor) {
+        mostrarNotificacao("Gestor não encontrado.", "erro");
+        return;
+    }
+
+    const estaAtivo = gestor.ativo !== false;
+    const proximaAcao = estaAtivo ? "inativar" : "ativar";
+    const confirmacao = confirm(
+        `Deseja realmente ${proximaAcao} o gestor ${gestor.responsavel}?`
+    );
+
+    if (!confirmacao) {
+        return;
+    }
+
+    gestor.ativo = !estaAtivo;
+
+    salvarDados();
+    atualizarInicio();
+    atualizarTabela();
+
+    mostrarNotificacao(
+        `Gestor ${gestor.ativo ? "ativado" : "inativado"} com sucesso.`
+    );
 }
 
 function excluirGestor(codigo) {
@@ -551,6 +587,7 @@ function prepararGestorImportado(linha) {
         funcao,
         escopo,
         criado: new Date().toISOString(),
+        ativo: true,
         completo: Boolean(
             responsavel &&
             cargo &&
@@ -725,6 +762,7 @@ selecionar("formularioGestor").addEventListener("submit", evento => {
         funcao: selecionar("funcao").value,
         escopo: selecionar("escopo").value.trim(),
         criado: new Date().toISOString(),
+        ativo: true,
         completo: true
     };
 
@@ -734,6 +772,7 @@ selecionar("formularioGestor").addEventListener("submit", evento => {
         );
 
         gestor.criado = gestores[indice].criado;
+        gestor.ativo = gestores[indice].ativo !== false;
         gestores[indice] = gestor;
 
         mostrarNotificacao("Cadastro atualizado com sucesso.");
@@ -902,7 +941,10 @@ selecionar("importarJson").addEventListener("change", evento => {
                 throw new Error();
             }
 
-            gestores = dados;
+            gestores = dados.map(gestor => ({
+                ...gestor,
+                ativo: gestor.ativo !== false
+            }));
 
             salvarDados();
             atualizarInicio();

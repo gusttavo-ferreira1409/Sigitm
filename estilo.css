@@ -1,3 +1,36 @@
+.botao-status-gestor {
+    min-height: 30px;
+    padding: 6px 9px;
+    border: 0;
+    border-radius: 7px;
+    background: #f0f0f2;
+    color: #4d3654;
+    font-size: 10px;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: background .2s, color .2s;
+}
+
+.botao-status-gestor:hover {
+    background: var(--roxo-claro);
+    color: var(--roxo-escuro);
+}
+
+.botao-status-gestor.inativar {
+    color: #8c3340;
+}
+
+.botao-status-gestor.ativar {
+    color: #24764b;
+    background: #e8f6ed;
+}
+
+.botao-status-gestor.ativar:hover {
+    background: #d1efdc;
+}
+
+
+
 * {
     box-sizing: border-box;
 }

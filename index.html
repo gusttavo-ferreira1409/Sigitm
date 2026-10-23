@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIGTM | Cadastro de Gestores</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+
+<body>
+
+    <div class="aplicacao">
+
+        <aside class="barra-lateral" id="barraLateral">
+
+            <div class="area-logo">
+                <img class="logo-vivo" src="logo-vivo.svg" alt="Logo Vivo">
+
+                <div>
+                    <strong>SIGTM</strong>
+                    <small>Cadastro de Gestores</small>
+                </div>
+            </div>
+
+            <nav class="navegacao">
+
+                <button class="botao-navegacao ativo" data-pagina="inicio">
+                    <span>⌂</span>
+                    Início
+                </button>
+
+                <button class="botao-navegacao" data-pagina="cadastro">
+                    <span>＋</span>
+                    Novo cadastro
+                </button>
+
+                <button class="botao-navegacao" data-pagina="historico">
+                    <span>▤</span>
+                    Histórico
+                </button>
+
+                <button class="botao-navegacao" data-pagina="configuracoes">
+                    <span>⚙</span>
+                    Configurações
+                </button>
+
+            </nav>
+
+            <div class="rodape-lateral">
+
+                <button class="botao-navegacao" id="exportarMenu">
+                    <span>⇩</span>
+                    Exportar dados
+                </button>
+
+                <button class="botao-navegacao" id="limparMenu">
+                    <span>⌫</span>
+                    Limpar base
+                </button>
+
+            </div>
+
+        </aside>
+
+
+        <main class="conteudo-principal">
+
+            <header class="barra-superior">
+
+                <button class="menu-celular" id="menuCelular">☰</button>
+
+                <div class="caminho-pagina">
+                    <small id="caminhoSecundario">Início</small>
+                    <strong id="tituloCaminho">Cadastro de Gestores</strong>
+                </div>
+
+                <div class="area-usuario">
+
+                    <button class="botao-usuario" id="botaoUsuario">
+                        <span class="avatar-usuario" id="avatarUsuario">U</span>
+
+                        <span class="dados-usuario">
+                            <b id="nomeUsuario">Usuário</b>
+                            <small>Colaborador</small>
+                        </span>
+
+                        <span>⌄</span>
+                    </button>
+
+                    <div class="menu-usuario" id="menuUsuario">
+                        <button id="botaoPerfil">Meu perfil</button>
+                        <button id="botaoAlterarNome">Alterar nome</button>
+                    </div>
+
+                </div>
+
+            </header>
+
+
+            <section class="area-conteudo">
+
+                <div class="pagina" id="pagina-inicio">
+
+                    <div class="cabecalho-pagina">
+
+                        <div>
+                            <span class="etiqueta">SIGTM • GESTÃO</span>
+                            <h1>Cadastro de Gestores</h1>
+                            <p>Uma central para cadastrar, consultar, editar e organizar gestores.</p>
+                        </div>
+
+                        <button class="botao-principal" data-pagina="cadastro">
+                            ＋ Novo cadastro
+                        </button>
+
+                    </div>
+
+
+                    <div class="cartoes-estatistica">
+
+                        <div class="cartao-estatistica">
+                            <span class="icone-estatistica">◎</span>
+
+                            <div>
+                                <small>Gestores cadastrados</small>
+                                <b id="totalGestores">0</b>
+                            </div>
+                        </div>
+
+                        <div class="cartao-estatistica">
+                            <span class="icone-estatistica">✓</span>
+
+                            <div>
+                                <small>Cadastros completos</small>
+                                <b id="cadastrosCompletos">0</b>
+                            </div>
+                        </div>
+
+                        <div class="cartao-estatistica">
+                            <span class="icone-estatistica">◷</span>
+
+                            <div>
+                                <small>Último cadastro</small>
+                                <b id="ultimoCadastro">—</b>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="grade-inicio">
+
+                        <div class="painel">
+
+                            <div class="cabecalho-painel">
+                                <div>
+                                    <h2>Acesso rápido</h2>
+                                    <p>Atalhos para as tarefas mais utilizadas.</p>
+                                </div>
+                            </div>
+
+                            <div class="acoes-rapidas">
+
+                                <button data-pagina="cadastro">
+                                    <span>＋</span>
+
+                                    <div>
+                                        <b>Cadastrar gestor</b>
+                                        <small>Adicionar um novo registro</small>
+                                    </div>
+                                </button>
+
+                                <button data-pagina="historico">
+                                    <span>▤</span>
+
+                                    <div>
+                                        <b>Consultar histórico</b>
+                                        <small>Pesquisar registros existentes</small>
+                                    </div>
+                                </button>
+
+                                <button id="backupInicio">
+                                    <span>⇩</span>
+
+                                    <div>
+                                        <b>Exportar base</b>
+                                        <small>Gerar arquivo de backup</small>
+                                    </div>
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="painel">
+
+                            <div class="cabecalho-painel">
+
+                                <div>
+                                    <h2>Cadastros recentes</h2>
+                                    <p>Últimos gestores adicionados.</p>
+                                </div>
+
+                                <button class="botao-link" data-pagina="historico">
+                                    Ver todos
+                                </button>
+
+                            </div>
+
+                            <div id="cadastrosRecentes" class="lista-recentes"></div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="pagina oculto" id="pagina-cadastro">
+
+                    <div class="cabecalho-pagina">
+
+                        <div>
+                            <span class="etiqueta">SIGTM • REGISTRO</span>
+                            <h1 id="tituloFormulario">Cadastro de gestor</h1>
+                            <p>Informe os dados abaixo. O ID é criado automaticamente.</p>
+                        </div>
+
+                        <span class="status-salvo">● Salvo localmente</span>
+
+                    </div>
+
+
+                    <form class="formulario" id="formularioGestor">
+
+                        <input type="hidden" id="idEdicao">
+
+                        <div class="titulo-secao">
+                            <span>01</span>
+
+                            <div>
+                                <h2>Identificação</h2>
+                                <p>Dados principais do gestor.</p>
+                            </div>
+                        </div>
+
+
+                        <div class="campos-formulario">
+
+                            <label>
+                                ID do gestor
+                                <input id="codigoGestor" readonly>
+                            </label>
+
+                            <label>
+                                Responsável <i>*</i>
+                                <input id="responsavel" maxlength="80" required placeholder="Nome completo">
+                            </label>
+
+                            <label>
+                                Cargo <i>*</i>
+                                <input id="cargo" maxlength="60" required placeholder="Cargo">
+                            </label>
+
+                            <label>
+                                E-mail <i>*</i>
+                                <input id="email" type="email" required placeholder="nome@empresa.com">
+                            </label>
+
+                            <label>
+                                Telefone
+                                <input id="telefone" maxlength="15" placeholder="(00) 00000-0000">
+                            </label>
+
+                            <label>
+                                Área <i>*</i>
+                                <input id="area" maxlength="60" required placeholder="Área de atuação">
+                            </label>
+
+                            <label>
+                                Estado <i>*</i>
+                                <select id="estado" required></select>
+                            </label>
+
+                            <label>
+                                Macro-grupo <i>*</i>
+                                <select id="macroGrupo" required>
+                                    <option value="">Selecione</option>
+                                    <option>Corporativo</option>
+                                    <option>Comercial</option>
+                                    <option>Tecnologia</option>
+                                    <option>Operações</option>
+                                    <option>Atendimento</option>
+                                    <option>Administrativo</option>
+                                </select>
+                            </label>
+
+                            <label>
+                                Função <i>*</i>
+                                <select id="funcao" required>
+                                    <option value="">Selecione</option>
+                                    <option>Interno</option>
+                                    <option>Campo</option>
+                                    <option>Diagnóstico</option>
+                                    <option>Híbrido</option>
+                                </select>
+                            </label>
+
+                            <label class="campo-completo">
+                                Escopo do gestor
+
+                                <textarea id="escopo" maxlength="500"
+                                    placeholder="Descreva a responsabilidade, região ou escopo de atuação"></textarea>
+
+                                <small>
+                                    <span id="contadorEscopo">0</span>/500
+                                </small>
+                            </label>
+
+                        </div>
+
+
+                        <div class="acoes-formulario">
+
+                            <button type="button" class="botao-secundario" id="cancelarFormulario">
+                                Cancelar
+                            </button>
+
+                            <button type="button" class="botao-secundario" id="limparFormulario">
+                                Limpar
+                            </button>
+
+                            <button type="submit" class="botao-principal" id="botaoSalvar">
+                                Finalizar cadastro
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+
+                <div class="pagina oculto" id="pagina-historico">
+
+                    <div class="cabecalho-pagina">
+
+                        <div>
+                            <span class="etiqueta">SIGTM • CONSULTA</span>
+                            <h1>Histórico de cadastros</h1>
+                            <p>Pesquise, visualize, edite ou exclua registros.</p>
+                        </div>
+
+                        <button class="botao-principal" data-pagina="cadastro">
+                            ＋ Novo cadastro
+                        </button>
+
+                    </div>
+
+
+                    <div class="painel painel-tabela">
+
+                        <div class="filtros">
+
+                            <div class="campo-pesquisa">
+                                <span>⌕</span>
+                                <input id="campoBusca" placeholder="Buscar nome, ID, cargo ou área">
+                            </div>
+
+                            <select id="filtroEstado">
+                                <option value="">Todos os estados</option>
+                            </select>
+
+                            <select id="filtroGrupo">
+                                <option value="">Todos os grupos</option>
+                            </select>
+
+                            <button class="botao-secundario" id="limparFiltros">
+                                Limpar filtros
+                            </button>
+
+                        </div>
+
+
+                        <div class="tabela-rolagem">
+
+                            <table>
+
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Gestor</th>
+                                        <th>Cargo</th>
+                                        <th>Área</th>
+                                        <th>Estado</th>
+                                        <th>Grupo</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="tabelaGestores"></tbody>
+
+                            </table>
+
+                        </div>
+
+
+                        <div id="estadoVazio" class="estado-vazio oculto">
+                            <span>⌕</span>
+                            <h3>Nenhum cadastro encontrado</h3>
+                            <p>Cadastre um gestor ou altere os filtros.</p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="pagina oculto" id="pagina-configuracoes">
+
+                    <div class="cabecalho-pagina">
+
+                        <div>
+                            <span class="etiqueta">SIGTM • PREFERÊNCIAS</span>
+                            <h1>Configurações</h1>
+                            <p>Personalize o sistema e gerencie sua base local.</p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="grade-configuracoes">
+
+                        <div class="painel cartao-configuracao">
+                            <span class="icone-configuracao">U</span>
+
+                            <div>
+                                <h2>Perfil do usuário</h2>
+                                <p>Esse nome será exibido no topo do sistema.</p>
+
+                                <div class="configuracao-linha">
+                                    <input id="nomeConfiguracao" maxlength="40">
+                                    <button class="botao-principal" id="salvarNome">
+                                        Salvar nome
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="painel cartao-configuracao">
+                            <span class="icone-configuracao">◐</span>
+
+                            <div>
+                                <h2>Aparência</h2>
+                                <p>Alterne entre o modo claro e escuro.</p>
+
+                                <button class="botao-secundario" id="alternarTema">
+                                    Alternar tema
+                                </button>
+                            </div>
+                        </div>
+
+
+                        <div class="painel cartao-configuracao">
+                            <span class="icone-configuracao">⇩</span>
+
+                            <div>
+                                <h2>Backup e importação</h2>
+                                <p>Exporte ou importe sua base de gestores.</p>
+
+                                <div class="configuracao-linha">
+
+                                    <button class="botao-secundario" id="exportarJson">
+                                        Exportar JSON
+                                    </button>
+
+                                    <button class="botao-secundario" id="exportarCsv">
+                                        Exportar CSV
+                                    </button>
+
+                                    <label class="botao-secundario botao-arquivo">
+                                        Importar JSON
+                                        <input type="file" id="importarJson" accept=".json">
+                                    </label>
+
+                                    <label class="botao-secundario botao-arquivo">
+                                        Importar ODS
+                                        <input type="file" id="importarOds" accept=".ods,.xlsx,.xls">
+                                    </label>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="painel cartao-configuracao cartao-perigo">
+                            <span class="icone-configuracao">!</span>
+
+                            <div>
+                                <h2>Manutenção</h2>
+                                <p>Remove todos os registros salvos neste navegador.</p>
+
+                                <button class="botao-perigo" id="limparTodos">
+                                    Excluir todos os cadastros
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <div class="fundo-modal oculto" id="fundoModal">
+
+        <div class="modal">
+
+            <button class="botao-fechar" id="fecharModal">×</button>
+
+            <div id="conteudoModal"></div>
+
+        </div>
+
+    </div>
+
+
+    <div class="caixa-notificacoes" id="caixaNotificacoes"></div>
+
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+    <script src="script.js"></script>
+
+</body>
+</html>
